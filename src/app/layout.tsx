@@ -1,6 +1,10 @@
+import Footer from "@/components/Footer";
+import AppHeader from "@/components/header/AppHeader";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
+import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`flex flex-col ${inter.className} min-h-screen`}>
+        <Providers>
+          <AppHeader />
+          <main className="flex-1 flex flex-col">{children}</main>
+          <Footer />
+        </Providers>
+        <Toaster position="top-right" />
+      </body>
     </html>
   );
 }
